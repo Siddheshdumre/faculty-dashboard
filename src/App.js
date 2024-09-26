@@ -4,6 +4,7 @@ import FacultyForm from './components/FacultyForm';
 import Dashboard from './components/Dashboard';
 import CommonForm from './components/CommonForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import LandingPage from './components/LandingPage';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         </nav>
         <div className="container mt-3">
           <Routes>
+          <Route path="/" element= {<LandingPage />} />
             <Route path="/faculty-form" element={<FacultyForm />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/common-form" element={<CommonForm />} />

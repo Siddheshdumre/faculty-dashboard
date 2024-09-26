@@ -36,3 +36,34 @@
     transform: rotate(360deg);
   }
 }
+/* src/index.css */
+
+/* General Styling */
+body {
+  background-color: #f8f9fa;
+}
+
+h2, h4 {
+  color: #343a40;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+  border-radius: 5px;
+}
+
+button {
+  border-radius: 5px;
+}
+
+.container {
+  padding: 20px;
+}
+
+.card-title {
+  color: #007bff;
+}

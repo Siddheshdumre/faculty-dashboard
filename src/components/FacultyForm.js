@@ -2,8 +2,10 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { Container, Card, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
+// Validation schema using Yup
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -15,63 +17,75 @@ const schema = yup.object().shape({
 
 const FacultyForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
   });
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     axios.post('/api/faculty', data)
-      .then(response => {
+      .then((response) => {
         alert('Faculty registered successfully');
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('There was an error registering the faculty!', error);
       });
   };
 
   return (
-    <div className="container">
-      <h2>Faculty Registration</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group">
-          <label>Name</label>
-          <input {...register('name')} className="form-control" />
-          <p>{errors.name?.message}</p>
-        </div>
-        <div className="form-group">
-          <label>Email</label>
-          <input {...register('email')} className="form-control" />
-          <p>{errors.email?.message}</p>
-        </div>
-        <div className="form-group">
-          <label>Phone</label>
-          <input {...register('phone')} className="form-control" />
-          <p>{errors.phone?.message}</p>
-        </div>
-        <div className="form-group">
-          <label>Department</label>
-          <input {...register('department')} className="form-control" />
-          <p>{errors.department?.message}</p>
-        </div>
-        <div className="form-group">
-          <label>Designation</label>
-          <select {...register('designation')} className="form-control">
-            <option value="Teaching">Teaching</option>
-            <option value="Non-Teaching">Non-Teaching</option>
-          </select>
-          <p>{errors.designation?.message}</p>
-        </div>
-        <div className="form-group">
-          <label>Gender</label>
-          <select {...register('gender')} className="form-control">
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </select>
-          <p>{errors.gender?.message}</p>
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
-    </div>
+    <Container className="mt-5">
+      <Card>
+        <Card.Body>
+          <Card.Title className="text-center mb-4">Faculty Registration</Card.Title>
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form.Group className="mb-3">
+              <Form.Label>Name</Form.Label>
+              <Form.Control {...register('name')} placeholder="Enter name" />
+              <small className="text-danger">{errors.name?.message}</small>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" {...register('email')} placeholder="Enter email" />
+              <small className="text-danger">{errors.email?.message}</small>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Phone</Form.Label>
+              <Form.Control {...register('phone')} placeholder="Enter phone number" />
+              <small className="text-danger">{errors.phone?.message}</small>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Department</Form.Label>
+              <Form.Control {...register('department')} placeholder="Enter department" />
+              <small className="text-danger">{errors.department?.message}</small>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Designation</Form.Label>
+              <Form.Control as="select" {...register('designation')}>
+                <option value="">Select designation</option>
+                <option value="Teaching">Teaching</option>
+                <option value="Non-Teaching">Non-Teaching</option>
+              </Form.Control>
+              <small className="text-danger">{errors.designation?.message}</small>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Gender</Form.Label>
+              <Form.Control as="select" {...register('gender')}>
+                <option value="">Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </Form.Control>
+              <small className="text-danger">{errors.gender?.message}</small>
+            </Form.Group>
+
+            <Button variant="primary" type="submit" className="w-100">Submit</Button>
+          </Form>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
 

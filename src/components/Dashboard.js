@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pie, Bar } from 'react-chartjs-2';
-import 'chart.js/auto'; // Ensures Chart.js works with React-Chartjs-2
+import { Card, Container, Row, Col } from 'react-bootstrap';
+import 'chart.js/auto'; // Ensure Chart.js works with React-Chartjs-2
 
 const Dashboard = () => {
   // Dummy data for gender ratio (Teaching vs Non-Teaching Faculties)
@@ -67,107 +68,127 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <h2>Dashboard</h2>
-
+    <Container className="mt-5">
+      <h2 className="text-center mb-4">Faculty Management Dashboard</h2>
+      
       {/* Gender Ratio Section */}
-      <div className="row">
-        <div className="col-md-6">
-          <h4>Teaching Faculties Gender Ratio</h4>
-          <Pie
-            data={{
-              labels: genderData.labels,
-              datasets: [genderData.datasets[0]], // Only show teaching faculties data
-            }}
-            options={pieOptions}
-          />
-        </div>
+      <Row className="mb-4">
+        <Col md={6} className="mb-4">
+          <Card>
+            <Card.Body>
+              <Card.Title className="text-center">Teaching Faculties Gender Ratio</Card.Title>
+              <Pie
+                data={{
+                  labels: genderData.labels,
+                  datasets: [genderData.datasets[0]], // Only show teaching faculties data
+                }}
+                options={pieOptions}
+              />
+            </Card.Body>
+          </Card>
+        </Col>
 
-        <div className="col-md-6">
-          <h4>Non-Teaching Faculties Gender Ratio</h4>
-          <Pie
-            data={{
-              labels: genderData.labels,
-              datasets: [genderData.datasets[1]], // Only show non-teaching faculties data
-            }}
-            options={pieOptions}
-          />
-        </div>
-      </div>
+        <Col md={6} className="mb-4">
+          <Card>
+            <Card.Body>
+              <Card.Title className="text-center">Non-Teaching Faculties Gender Ratio</Card.Title>
+              <Pie
+                data={{
+                  labels: genderData.labels,
+                  datasets: [genderData.datasets[1]], // Only show non-teaching faculties data
+                }}
+                options={pieOptions}
+              />
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
 
       {/* Designation Breakdown Section */}
-      <div className="row mt-4">
-        <div className="col-md-6">
-          <h4>Faculty Designation Breakdown</h4>
-          <Pie
-            data={designationData}
-            options={{
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: 'top',
-                },
-                title: {
-                  display: true,
-                  text: 'Faculty Designation (Teaching vs Non-Teaching)',
-                },
-              },
-            }}
-          />
-        </div>
+      <Row className="mb-4">
+        <Col md={6} className="mb-4">
+          <Card>
+            <Card.Body>
+              <Card.Title className="text-center">Faculty Designation Breakdown</Card.Title>
+              <Pie
+                data={designationData}
+                options={{
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      position: 'top',
+                    },
+                    title: {
+                      display: true,
+                      text: 'Faculty Designation (Teaching vs Non-Teaching)',
+                    },
+                  },
+                }}
+              />
+            </Card.Body>
+          </Card>
+        </Col>
 
         {/* Skillset Distribution Section */}
-        <div className="col-md-6">
-          <h4>Faculty Skillset Distribution</h4>
-          <Bar
-            data={skillsetData}
-            options={{
-              responsive: true,
-              plugins: {
-                legend: {
-                  display: false, // Hide legend for bar chart
-                },
-                title: {
-                  display: true,
-                  text: 'Skillsets Among Faculties',
-                },
-              },
-              scales: {
-                y: {
-                  beginAtZero: true,
-                  title: {
-                    display: true,
-                    text: 'Percentage',
+        <Col md={6} className="mb-4">
+          <Card>
+            <Card.Body>
+              <Card.Title className="text-center">Faculty Skillset Distribution</Card.Title>
+              <Bar
+                data={skillsetData}
+                options={{
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      display: false, // Hide legend for bar chart
+                    },
+                    title: {
+                      display: true,
+                      text: 'Skillsets Among Faculties',
+                    },
                   },
-                },
-              },
-            }}
-          />
-        </div>
-      </div>
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      title: {
+                        display: true,
+                        text: 'Percentage',
+                      },
+                    },
+                  },
+                }}
+              />
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
 
       {/* Student Achievement Section */}
-      <div className="row mt-4">
-        <div className="col-md-6">
-          <h4>Student Achievements</h4>
-          <Pie
-            data={achievementData}
-            options={{
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: 'top',
-                },
-                title: {
-                  display: true,
-                  text: 'Student Achievements Distribution',
-                },
-              },
-            }}
-          />
-        </div>
-      </div>
-    </div>
+      <Row>
+        <Col md={12} className="mb-4">
+          <Card>
+            <Card.Body>
+              <Card.Title className="text-center">Student Achievements</Card.Title>
+              <Pie
+                data={achievementData}
+                options={{
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      position: 'top',
+                    },
+                    title: {
+                      display: true,
+                      text: 'Student Achievements Distribution',
+                    },
+                  },
+                }}
+              />
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
